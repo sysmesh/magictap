@@ -77,6 +77,17 @@ rm "$BUILD_DIR/${APP_NAME}_arm64" "$BUILD_DIR/${APP_NAME}_x86_64"
 # Copy Info.plist
 cp Info.plist "$APP_PATH/Contents/"
 
+# Ad-hoc sign the app bundle so macOS Accessibility permissions persist
+echo "[34m[1m[0m"
+echo "[34m[1m[0m"
+echo "[34m[1mCodesigning app bundle...[0m"
+codesign --force --deep --sign - "$APP_PATH"
+
+if [ $? -ne 0 ]; then
+    echo "❌ Codesigning failed!"
+    exit 1
+fi
+
 echo ""
 echo "=========================================="
 echo "✅ UNIVERSAL BINARY BUILD COMPLETE!"

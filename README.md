@@ -6,7 +6,7 @@
   <img alt="Mouse Toucher Logo" src="mousetoucher-light.png">
 </picture>
 
-**Finally, tap-to-click for your Apple Magic Mouse!**
+**Finally, tap-to-click for your Apple Magic Mouse!** (v1.1)
 
 Mouse Toucher brings trackpad-style tap-to-click functionality to the Apple Magic Mouse. Simply tap the left or right side of your mouse surface to click - no more pressing down the button.
 
@@ -44,7 +44,7 @@ If you prefer to build it yourself:
 
 ```bash
 cd /path/to/mousetoucher-claude
-./build.sh
+./build.sh   # Builds and ad-hoc codesigns the app so Accessibility permissions stick
 cp -r build/MouseToucher.app /Applications/
 ```
 
@@ -53,7 +53,8 @@ cp -r build/MouseToucher.app /Applications/
 1. Open **MouseToucher** from your Applications folder
 2. You'll see a permission request - click **"Open System Settings"**
 3. In **Privacy & Security → Accessibility**, enable **MouseToucher** ✓
-4. **Quit and relaunch** MouseToucher
+   - If the app is missing, click the **+** button and add it from `/Applications/MouseToucher.app`
+4. Return to MouseToucher – it will begin working automatically once the toggle is on (no relaunch needed)
 
 That's it! You'll see a mouse icon in your menu bar.
 
@@ -124,8 +125,8 @@ These permissions are granted by you in System Settings and can be revoked at an
 **Check permissions:**
 1. Go to **System Settings → Privacy & Security → Accessibility**
 2. Make sure **MouseToucher** is in the list and **checked** ✓
-3. If not checked, enable it
-4. **Restart MouseToucher** after changing permissions
+3. If it disappeared (after rebuilding), click **+** and re-add `/Applications/MouseToucher.app`
+4. Toggle the checkbox off/on once — the app will detect the change immediately
 
 **Verify Magic Mouse:**
 1. Go to **System Settings → Bluetooth**

@@ -5,42 +5,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     var multitouchManager: MultitouchManager?
     var isEnabled = true
+    private var hasStartedMultitouch = false
+    private var hasRequestedAccessibilityPrompt = false
+    private var hasShownAccessibilityInstructions = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBar()
 
-        // Check for accessibility permissions
-        let trusted = AXIsProcessTrusted()
-        if !trusted {
-            showAccessibilityAlert()
-            return
-        }
-
-        // Initialize multitouch manager
-        multitouchManager = MultitouchManager()
-
-        // Set up click synthesis callback
-        multitouchManager?.onClickSynthesized = { [weak self] location, isRightClick in
-            self?.synthesizeClick(at: location, isRightClick: isRightClick)
-        }
-
-        // Start monitoring
-        multitouchManager?.start()
+        ensureAccessibilityAndStart()
     }
 
-    func showAccessibilityAlert() {
+    @objc func showAccessibilityInstructions() {
+        guard !hasShownAccessibilityInstructions else { return }
+        hasShownAccessibilityInstructions = true
         let alert = NSAlert()
         alert.messageText = "Accessibility Permission Required"
-        alert.informativeText = "Mouse Toucher needs accessibility permissions to simulate clicks.\n\nPlease grant permission in:\nSystem Settings > Privacy & Security > Accessibility"
+        alert.informativeText = "Mouse Toucher needs accessibility permissions to simulate clicks.\n\nPlease grant permission in:\nSystem Settings > Privacy & Security > Accessibility\n\nAfter enabling, return to Mouse Toucher. The app will begin working as soon as permission is granted."
         alert.alertStyle = .warning
         alert.addButton(withTitle: "Open System Settings")
         alert.addButton(withTitle: "Quit")
 
+        NSApp.activate(ignoringOtherApps: true)
         let response = alert.runModal()
         if response == .alertFirstButtonReturn {
             NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
+        } else if response == .alertSecondButtonReturn {
+            NSApplication.shared.terminate(nil)
         }
-        NSApplication.shared.terminate(nil)
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -59,6 +50,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let enabledItem = NSMenuItem(title: "Tap to Click: Enabled", action: #selector(toggleEnabled), keyEquivalent: "")
         enabledItem.state = isEnabled ? .on : .off
         menu.addItem(enabledItem)
+
+        menu.addItem(NSMenuItem.separator())
+        let accessibilityItem = NSMenuItem(title: "Accessibility Instructions…", action: #selector(showAccessibilityInstructions), keyEquivalent: "")
+        accessibilityItem.target = self
+        menu.addItem(accessibilityItem)
 
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "About Mouse Toucher", action: #selector(showAbout), keyEquivalent: ""))
@@ -101,9 +97,50 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApplication.shared.terminate(nil)
     }
 
+    private func ensureAccessibilityAndStart() {
+        if AXIsProcessTrusted() {
+            startMultitouchManager()
+            return
+        }
+
+        requestAccessibilityPermissionIfNeeded()
+        waitForAccessibilityPermission()
+    }
+
+    private func startMultitouchManager() {
+        guard !hasStartedMultitouch else { return }
+        hasStartedMultitouch = true
+
+        multitouchManager = MultitouchManager()
+        multitouchManager?.onClickSynthesized = { [weak self] location, isRightClick in
+            self?.synthesizeClick(at: location, isRightClick: isRightClick)
+        }
+        multitouchManager?.start()
+    }
+
+    private func requestAccessibilityPermissionIfNeeded() {
+        guard !hasRequestedAccessibilityPrompt else { return }
+        hasRequestedAccessibilityPrompt = true
+
+        let promptKey = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
+        let options = [promptKey: true] as CFDictionary
+        _ = AXIsProcessTrustedWithOptions(options)
+    }
+
+    private func waitForAccessibilityPermission() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else { return }
+
+            if AXIsProcessTrusted() {
+                self.startMultitouchManager()
+            } else {
+                self.waitForAccessibilityPermission()
+            }
+        }
+    }
+
     func synthesizeClick(at location: CGPoint, isRightClick: Bool) {
         if isRightClick {
-            // Right click
             if let mouseDown = CGEvent(mouseEventSource: nil, mouseType: .rightMouseDown, mouseCursorPosition: location, mouseButton: .right) {
                 mouseDown.post(tap: .cghidEventTap)
             }
@@ -111,7 +148,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 mouseUp.post(tap: .cghidEventTap)
             }
         } else {
-            // Left click
             if let mouseDown = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: location, mouseButton: .left) {
                 mouseDown.post(tap: .cghidEventTap)
             }
