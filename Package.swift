@@ -2,26 +2,26 @@
 import PackageDescription
 
 let package = Package(
-    name: "MouseToucher",
+    name: "MagicTap",
     platforms: [
         .macOS(.v11)
     ],
     products: [
         .library(
-            name: "MouseToucherLib",
-            targets: ["MouseToucherLib"]
+            name: "MagicTapLib",
+            targets: ["MagicTapLib"]
         )
     ],
     targets: [
         .target(
-            name: "MouseToucherLib",
+            name: "MagicTapLib",
             dependencies: [],
             path: "Sources",
             sources: ["TapDetector.swift", "AppDelegate.swift"]
         ),
         .testTarget(
-            name: "MouseToucherTests",
-            dependencies: ["MouseToucherLib"],
+            name: "MagicTapTests",
+            dependencies: ["MagicTapLib"],
             path: "Tests"
         )
     ]

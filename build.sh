@@ -2,13 +2,13 @@
 
 # Build script for Mouse Toucher app (Production)
 
-APP_NAME="MouseToucher"
-BUNDLE_ID="com.mousetoucher.app"
+APP_NAME="MagicTap"
+BUNDLE_ID="com.magictag.app"
 BUILD_DIR="build"
 APP_PATH="$BUILD_DIR/$APP_NAME.app"
 
 echo "=========================================="
-echo "Building Mouse Toucher (Universal Binary)"
+echo "Building Magic Tap (Universal Binary)"
 echo "=========================================="
 
 # Clean previous build
