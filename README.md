@@ -1,192 +1,143 @@
-# Mouse Toucher
+MagicTap
+A lightweight and simple tap-to-click for your Apple Magic Mouse!
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="mousetoucher-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="mousetoucher-light.png">
-  <img alt="Mouse Toucher Logo" src="mousetoucher-light.png">
-</picture>
+Based on the fine work made by the original MagicTap (https://github.com/meatpaste/mousetoucher), this forked and upgraded code now brings you a trackpad style of tap-to-click functionality with the Apple Magic Mouse.
+Left click support, right click support, three fingers swipe up for Expose support and zoom in, out (by pinching) support added.
 
-**Finally, tap-to-click for your Apple Magic Mouse!** (v1.1)
+✨ Features
+🖱️ Tap left side for left-click
 
-Mouse Toucher brings trackpad-style tap-to-click functionality to the Apple Magic Mouse. Simply tap the left or right side of your mouse surface to click - no more pressing down the button.
+🖱️ Tap right side for right-click
 
-## ✨ Features
+🖱️ Tap two fingers for middle-click
 
-- 🖱️ **Tap left side** for left-click
-- 🖱️ **Tap right side** for right-click
-- ⚡ **Fast & responsive** - no noticeable delay
-- 🎯 **Easy toggle** on/off from the menu bar
-- 🔒 **Privacy-focused** - runs entirely on your Mac, no network access
+🖱️ Swipe three fingers up for Expose mode
 
-## 📋 Requirements
+🖱️ Pinch in/out for zooming in or out
 
-- macOS 11.0 (Big Sur) or later
-- Apple Magic Mouse (1st or 2nd generation)
-- Your Magic Mouse must be connected via Bluetooth
+⚡ Fast & responsive - no noticeable delay
 
-## 🚀 Installation
+Extremely small and lightweight - easy on your Mac's resources :-)
 
-### Option 1: Use Pre-Built Binary (Recommended)
+🎯 Easy toggle on/off from the menu bar
 
-A universal binary (works on both Apple Silicon and Intel Macs) is included in the `build` folder.
+🔒 Privacy-focused - runs entirely on your Mac, no network access
 
-```bash
+📋 Requirements
+macOS 11.0 (Big Sur) or later
+
+Apple Magic Mouse (1st or 2nd generation)
+
+Your Magic Mouse must be connected via Bluetooth
+
+🚀 Installation
+Option 1: Use Pre-Built Binary (Recommended)
+A universal binary (works on both Apple Silicon and Intel Macs) is included in the build folder.
+
+Bash
 # Navigate to the repository
-cd /path/to/mousetoucher-claude
+cd /path/to/magictap
 
 # Copy to Applications
-cp -r build/MouseToucher.app /Applications/
-```
-
-### Option 2: Build From Source
-
+cp -r build/magictap.app /Applications/
+Option 2: Build From Source
 If you prefer to build it yourself:
 
-```bash
-cd /path/to/mousetoucher-claude
+Bash
+cd /path/to/magictap
 ./build.sh   # Builds and ad-hoc codesigns the app so Accessibility permissions stick
-cp -r build/MouseToucher.app /Applications/
-```
+cp -r build/MagicTap.app /Applications/
+Grant Permissions
+Open MagicTap from your Applications folder
 
-### Grant Permissions
+You'll see a permission request - click "Open System Settings"
 
-1. Open **MouseToucher** from your Applications folder
-2. You'll see a permission request - click **"Open System Settings"**
-3. In **Privacy & Security → Accessibility**, enable **MouseToucher** ✓
-   - If the app is missing, click the **+** button and add it from `/Applications/MouseToucher.app`
-4. Return to MouseToucher – it will begin working automatically once the toggle is on (no relaunch needed)
+In Privacy & Security → Accessibility, enable MagicTap ✓
 
-That's it! You'll see a mouse icon in your menu bar.
+If the app is missing, click the + button and add it from /Applications/MagicTap.app
 
-## 📖 How to Use
+Return to MagicTap – it will begin working automatically once the toggle is on (no relaunch needed)
 
-### Basic Usage
+📖 How to Use
+Basic Usage
+Look for the mouse icon 🖱️ in your menu bar
 
-1. Look for the **mouse icon** 🖱️ in your menu bar (top-right of screen)
-2. **Tap anywhere** on your Magic Mouse surface to click
-   - Tap **left side** = normal click
-   - Tap **right side** = right-click (context menu)
-3. You can still click the mouse button normally - tapping is just an additional way to click
+Tap anywhere on your Magic Mouse surface to click
 
-### Menu Bar Controls
+Tap left side = normal click
 
-Click the mouse icon in your menu bar to:
+Tap right side = right-click
 
-- **Enable/Disable** tap-to-click (checkmark shows when enabled)
-- **View About** information
-- **Quit** the app
+Physical clicking still works normally.
 
-### Tips
+Menu Bar Controls
+Click the icon to:
 
-- 💡 Keep your taps **quick and light** for best results
-- 💡 The dividing line between left/right is roughly in the center of the mouse
-- 💡 To disable temporarily, click the menu bar icon and toggle it off
+Enable/Disable tap-to-click
 
-## 🔧 Auto-Start on Login (Optional)
+View About information
 
-To have MouseToucher start automatically when you log in:
+Quit the app
 
-1. Open **System Settings**
-2. Go to **General → Login Items**
-3. Click the **+** button
-4. Select **MouseToucher** from your Applications folder
-5. Click **Add**
+🔧 Auto-Start on Login (Optional)
+To have MagicTap start automatically:
 
-Now MouseToucher will launch every time you start your Mac!
+Open System Settings > General > Login Items
 
-## ⚠️ Important Information
+Click the + button
 
-### About Private Frameworks
+Select MagicTap from your Applications folder
 
-MouseToucher uses Apple's private **MultitouchSupport** framework to detect touches on your Magic Mouse. 
+Click Add
 
-**What this means:**
+⚠️ Important Information
+About Private Frameworks
+MagicTap uses Apple's private MultitouchSupport framework.
 
-- ✅ **Safe to use** - Many apps use this framework
-- ✅ **Works great** on current macOS versions
-- ❌ **Not on Mac App Store** - Apple doesn't allow private frameworks in the App Store
-- ⚠️ **Future updates** - Could potentially break in a major macOS update (though unlikely based on history)
+✅ Safe to use - Widely used by similar utilities.
 
-**Privacy:** The app only monitors your Magic Mouse touches. It doesn't collect data, access the internet, or send information anywhere.
+✅ Performance - Native responsiveness.
 
-### Accessibility Permissions
+❌ Not on App Store - Private frameworks are restricted by Apple.
 
-MouseToucher requires **Accessibility permissions** to:
+⚠️ Future updates - Major macOS updates could theoretically impact functionality.
 
-1. **Detect** when you tap the Magic Mouse surface
-2. **Send** click events to your Mac
+Accessibility Permissions
+MagicTap requires Accessibility permissions to detect touches and send click events. The app cannot function without them.
 
-These permissions are granted by you in System Settings and can be revoked at any time. The app cannot function without them.
+🐛 Troubleshooting
+Taps aren't working
+Go to System Settings → Privacy & Security → Accessibility
 
-## 🐛 Troubleshooting
+Ensure MagicTap is checked ✓
 
-### Taps aren't working
+If issues persist after a rebuild, remove and re-add the app to the list.
 
-**Check permissions:**
-1. Go to **System Settings → Privacy & Security → Accessibility**
-2. Make sure **MouseToucher** is in the list and **checked** ✓
-3. If it disappeared (after rebuilding), click **+** and re-add `/Applications/MouseToucher.app`
-4. Toggle the checkbox off/on once — the app will detect the change immediately
+Verify your Magic Mouse is connected via Bluetooth.
 
-**Verify Magic Mouse:**
-1. Go to **System Settings → Bluetooth**
-2. Your Magic Mouse should show as "Connected"
-3. Try moving the mouse to confirm it's working
+App won't launch
+If you see an "App is damaged" error:
 
-### App won't launch
+Right-click MagicTap → Open → Click Open again.
 
-**"App is damaged" error:**
-- This is normal for apps not from the App Store
-- Right-click MouseToucher → **Open** → Click **Open** again in the dialog
-- Or: Go to **System Settings → Privacy & Security** and click **Open Anyway**
+Or: Check System Settings → Privacy & Security and click Open Anyway.
 
-### Adjusting sensitivity
+Adjusting sensitivity
+Open MultitouchManager.swift
 
-If taps are too sensitive or not sensitive enough, you can adjust the settings:
+Modify tapTimeThreshold or tapMovementThreshold.
 
-1. Open `MultitouchManager.swift` in a text editor
-2. Find these lines near the top:
-   ```swift
-   tapTimeThreshold: 0.25,      // How long a tap can be (seconds)
-   tapMovementThreshold: 0.08    // How much finger movement is allowed
-   ```
-3. Make the numbers **smaller** for stricter detection, **larger** for more lenient
-4. Save and run `./build.sh` again
+Save and run ./build.sh.
 
-## 🗑️ Uninstalling
-
-To remove MouseToucher:
-
-```bash
+🗑️ Uninstalling
+Bash
 # Remove the app
-rm -rf /Applications/MouseToucher.app
+rm -rf /Applications/MagicTap.app
 
-# Remove from Login Items (if you added it)
-# System Settings → General → Login Items → Remove MouseToucher
+# Remove from Login Items via System Settings
+# Revoke Accessibility permissions via System Settings
+🙏 Credits
+Based on the fine work made by the original MouseToucher code (https://github.com/meatpaste/mousetoucher).
+Thanks to the reverse engineering community for documenting the MultitouchSupport framework.
 
-# Revoke permissions (optional)
-# System Settings → Privacy & Security → Accessibility → Remove MouseToucher
-```
-
-## 💬 Feedback & Support
-
-Having issues? Want to suggest a feature?
-
-- **Check** the Troubleshooting section above
-- **Open an issue** on GitHub if you find a bug
-- **Contribute** submit a pull request
-- **Share** with others who want tap-to-click for Magic Mouse!
-
-## 🙏 Credits
-
-This was 'vibe coded' using Claude Code (Sonnet 4.5)
-
-Built to solve a frustrating gap in macOS - why doesn't the Magic Mouse have tap-to-click when the trackpad does?
-
-Thanks to the reverse engineering community for documenting the MultitouchSupport framework, making apps like this possible.
-
----
-
-**Enjoy your new tap-to-click Magic Mouse!** 🎉
-
-*Made for Mac users who love the Magic Mouse but wish it had tap-to-click.*
+Enjoy your new tap-to-click Magic Mouse! 🎉
