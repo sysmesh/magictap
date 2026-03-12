@@ -21,6 +21,17 @@ class MultitouchManager {
         MultitouchManager.sharedInstance = self
     }
 
+    // Expose tap sensitivity parameters for UI controls
+    var tapTimeThreshold: TimeInterval {
+        get { return tapDetector.tapTimeThreshold }
+        set { tapDetector.tapTimeThreshold = newValue }
+    }
+
+    var tapMovementThreshold: CGFloat {
+        get { return tapDetector.tapMovementThreshold }
+        set { tapDetector.tapMovementThreshold = newValue }
+    }
+
     func start() {
         guard let deviceList = MTDeviceCreateList() else {
             return

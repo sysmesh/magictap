@@ -8,9 +8,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var hasStartedMultitouch = false
     private var hasRequestedAccessibilityPrompt = false
     private var hasShownAccessibilityInstructions = false
+    
+    // UserDefaults key names
+    private let timeThresholdKey = "TapTimeThreshold"
+    private let movementThresholdKey = "TapMovementThreshold"
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBar()
+
+        // Load saved preferences after menu is set up
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.loadSavedPreferences()
+        }
 
         ensureAccessibilityAndStart()
     }
@@ -51,6 +61,64 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         enabledItem.state = isEnabled ? .on : .off
         menu.addItem(enabledItem)
 
+        // Add sliders for tap sensitivity adjustment
+        let sensitivityMenu = NSMenu()
+        sensitivityMenu.title = "Tap Sensitivity"
+        
+        // Time Threshold Slider with proper margins and labels
+        let timeTitleItem = NSMenuItem(title: "Time Threshold", action: nil, keyEquivalent: "")
+        timeTitleItem.isEnabled = false // Make it non-clickable to look like a label
+        sensitivityMenu.addItem(timeTitleItem)
+        
+        // Create slider with proper positioning (centered in menu)
+        let timeSlider = NSSlider(value: 0.85, minValue: 0.0, maxValue: 2.0, target: self, action: #selector(timeSliderChanged(_:)))
+        timeSlider.frame = NSMakeRect(10, 0, 140, 20)
+        
+        // Add Min label to the left
+        let timeMinLabelItem = NSMenuItem(title: "Min", action: nil, keyEquivalent: "")
+        timeMinLabelItem.isEnabled = false
+        sensitivityMenu.addItem(timeMinLabelItem)
+        
+        // Add slider item
+        let timeSliderItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        timeSliderItem.target = self
+        timeSliderItem.view = timeSlider
+        sensitivityMenu.addItem(timeSliderItem)
+        
+        // Add Max label to the right
+        let timeMaxLabelItem = NSMenuItem(title: "Max", action: nil, keyEquivalent: "")
+        timeMaxLabelItem.isEnabled = false
+        sensitivityMenu.addItem(timeMaxLabelItem)
+        
+        // Movement Threshold Slider with proper margins and labels
+        let movementTitleItem = NSMenuItem(title: "Movement Threshold", action: nil, keyEquivalent: "")
+        movementTitleItem.isEnabled = false // Make it non-clickable to look like a label
+        sensitivityMenu.addItem(movementTitleItem)
+        
+        // Create slider with proper positioning (centered in menu)
+        let movementSlider = NSSlider(value: 0.08, minValue: 0.0, maxValue: 10.0, target: self, action: #selector(movementSliderChanged(_:)))
+        movementSlider.frame = NSMakeRect(10, 0, 140, 20)
+        
+        // Add Min label to the left
+        let movementMinLabelItem = NSMenuItem(title: "Min", action: nil, keyEquivalent: "")
+        movementMinLabelItem.isEnabled = false
+        sensitivityMenu.addItem(movementMinLabelItem)
+        
+        // Add slider item
+        let movementSliderItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        movementSliderItem.target = self
+        movementSliderItem.view = movementSlider
+        sensitivityMenu.addItem(movementSliderItem)
+        
+        // Add Max label to the right
+        let movementMaxLabelItem = NSMenuItem(title: "Max", action: nil, keyEquivalent: "")
+        movementMaxLabelItem.isEnabled = false
+        sensitivityMenu.addItem(movementMaxLabelItem)
+        
+        let sensitivityMenuItem = NSMenuItem(title: "Sensitivity", action: nil, keyEquivalent: "")
+        sensitivityMenuItem.submenu = sensitivityMenu
+        menu.addItem(sensitivityMenuItem)
+
         menu.addItem(NSMenuItem.separator())
         let accessibilityItem = NSMenuItem(title: "Accessibility Instructions…", action: #selector(showAccessibilityInstructions), keyEquivalent: "")
         accessibilityItem.target = self
@@ -74,6 +142,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         multitouchManager?.setEnabled(isEnabled)
     }
 
+    @objc func timeSliderChanged(_ sender: NSSlider) {
+        let value = Double(sender.floatValue)
+        multitouchManager?.tapTimeThreshold = value
+        savePreference(key: timeThresholdKey, value: value)
+    }
+
+    @objc func movementSliderChanged(_ sender: NSSlider) {
+        let value = Double(sender.floatValue)
+        multitouchManager?.tapMovementThreshold = CGFloat(value)
+        savePreference(key: movementThresholdKey, value: value)
+    }
+
     @objc func showAbout() {
         let alert = NSAlert()
         alert.messageText = "Magic Tap"
@@ -95,6 +175,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func quit() {
         multitouchManager?.stop()
         NSApplication.shared.terminate(nil)
+    }
+
+    private func loadSavedPreferences() {
+        let defaults = UserDefaults.standard
+        
+        // Load saved time threshold with default of 0.85 if not found
+        if let savedTimeThreshold = defaults.object(forKey: timeThresholdKey) as? Double {
+            multitouchManager?.tapTimeThreshold = savedTimeThreshold
+        }
+        
+        // Load saved movement threshold with default of 0.08 if not found
+        if let savedMovementThreshold = defaults.object(forKey: movementThresholdKey) as? Double {
+            multitouchManager?.tapMovementThreshold = CGFloat(savedMovementThreshold)
+        }
+    }
+
+    private func savePreference(key: String, value: Double) {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: key)
     }
 
     private func ensureAccessibilityAndStart() {

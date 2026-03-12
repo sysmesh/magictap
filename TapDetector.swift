@@ -3,8 +3,8 @@ import CoreGraphics
 
 /// Handles tap detection logic - separated for testability
 class TapDetector {
-    let tapTimeThreshold: TimeInterval
-    let tapMovementThreshold: CGFloat
+    var tapTimeThreshold: TimeInterval
+    var tapMovementThreshold: CGFloat
 
     private var touchStartTime: Date?
     private var touchStartLocation: CGPoint?
