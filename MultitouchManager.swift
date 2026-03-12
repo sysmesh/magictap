@@ -5,7 +5,7 @@ import AppKit
 // Swift wrapper for Multitouch framework
 class MultitouchManager {
     private var devices: [MTDeviceRef] = []
-    private var tapDetector = TapDetector(tapTimeThreshold: 0.35, tapMovementThreshold: 0.12) // Was 0.25 and 0.08
+    private var tapDetector = TapDetector(tapTimeThreshold: 0.85, tapMovementThreshold: 0.08) // Was 0.25 and 0.08
     private var isEnabled = true
     private var activeTouch: Int32 = -1
     private var touchStartX: Float = 0.0

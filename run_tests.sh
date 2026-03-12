@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Test runner script for Mouse Toucher
+# Test runner script for Magic Tap
 
-echo "=== Mouse Toucher Test Suite ==="
+echo "=== Magic Tap Test Suite ==="
 echo ""
 
 # Run tests using Swift Package Manager

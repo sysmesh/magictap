@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build script for Mouse Toucher app (Production)
+# Build script for Magic Tap app (Production)
 
 APP_NAME="MagicTap"
 BUNDLE_ID="com.magictag.app"
@@ -74,8 +74,9 @@ fi
 # Clean up temporary files
 rm "$BUILD_DIR/${APP_NAME}_arm64" "$BUILD_DIR/${APP_NAME}_x86_64"
 
-# Copy Info.plist
+# Copy Info.plist and app icon and app icon and app icon
 cp Info.plist "$APP_PATH/Contents/"
+cp assets/appicon.icns "$APP_PATH/Contents/Resources/"
 
 # Ad-hoc sign the app bundle so macOS Accessibility permissions persist
 echo "[34m[1m[0m"

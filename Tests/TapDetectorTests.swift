@@ -2,7 +2,7 @@ import XCTest
 import Foundation
 import CoreGraphics
 
-@testable import MouseToucherLib
+@testable import MagicTapLib
 
 class TapDetectorTests: XCTestCase {
 

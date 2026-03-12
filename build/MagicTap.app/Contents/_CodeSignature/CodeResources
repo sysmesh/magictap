@@ -3,17 +3,20 @@
 <plist version="1.0">
 <dict>
 	<key>files</key>
-	<dict/>
+	<dict>
+		<key>Resources/appicon.icns</key>
+		<data>
+		YriIgzNuwXfDuO67+lczh599Q9s=
+		</data>
+	</dict>
 	<key>files2</key>
 	<dict>
-		<key>MacOS/MagicTap</key>
+		<key>Resources/appicon.icns</key>
 		<dict>
-			<key>cdhash</key>
+			<key>hash2</key>
 			<data>
-			a1z4DTv5MpLNo4AD3LGdl0LYpfI=
+			u2IolHiCvNGlF/NwCOFUQqsJt1+xZWHMZizReqJLQTA=
 			</data>
-			<key>requirement</key>
-			<string>cdhash H"6b5cf80d3bf93292cda38003dcb19d9742d8a5f2" or cdhash H"e79f5fd66c15648023861e0a2eafe82f621ae036"</string>
 		</dict>
 	</dict>
 	<key>rules</key>

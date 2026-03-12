@@ -16,7 +16,6 @@ let package = Package(
         .target(
             name: "MagicTapLib",
             dependencies: [],
-            path: "Sources",
             sources: ["TapDetector.swift", "AppDelegate.swift"]
         ),
         .testTarget(

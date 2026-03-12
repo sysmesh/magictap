@@ -1,7 +1,7 @@
 MagicTap
 A lightweight and simple tap-to-click for your Apple Magic Mouse!
 
-Based on the fine work made by the original MagicTap (https://github.com/meatpaste/mousetoucher), this forked and upgraded code now brings you a trackpad style of tap-to-click functionality with the Apple Magic Mouse.
+Based on the fine work made by the original Mouse Toucher (https://github.com/meatpaste/mousetoucher), this forked and upgraded code now brings you a trackpad style of tap-to-click functionality with the Apple Magic Mouse.
 Left click support, right click support, three fingers swipe up for Expose support and zoom in, out (by pinching) support added.
 
 ✨ Features
