@@ -164,8 +164,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         • Tap left side for left click
         • Tap right side for right click
+        • Double tap left side and hold to drag
+        (Similar to holding down left click)
 
-        Version 1.0
+        Version 2.0
 
         Uses private MultitouchSupport framework
         """

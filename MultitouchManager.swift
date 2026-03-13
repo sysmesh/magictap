@@ -5,23 +5,23 @@ import AppKit
 // Swift wrapper for Multitouch framework
 class MultitouchManager {
     private var devices: [MTDeviceRef] = []
-    private var tapDetector = TapDetector(tapTimeThreshold: 0.85, tapMovementThreshold: 0.08) // Was 0.25 and 0.08
+    private var tapDetector = TapDetector(tapTimeThreshold: 0.85, tapMovementThreshold: 0.08)
     private var isEnabled = true
     private var activeTouch: Int32 = -1
     private var touchStartX: Float = 0.0
     private var touchStartY: Float = 0.0
-    private var rightClickThreshold: Float = 0.6  // X > 0.6 = right side
-    private var surfaceMovementThreshold: Float = 0.15  // Max finger movement on surface (0-1 scale)
-    private var isDragging = false  // Track if double-tap drag is in progress
-    private var dragStartCursorPos: CGPoint = .zero  // Cursor position when drag started
-    private var dragLastTouchX: Float = 0.0  // Last touch position on surface
+    private var rightClickThreshold: Float = 0.6
+    private var surfaceMovementThreshold: Float = 0.15
+    private var isDragging = false
+    private var dragStartCursorPos: CGPoint = .zero
+    private var dragLastTouchX: Float = 0.0
     private var dragLastTouchY: Float = 0.0
 
     fileprivate static var sharedInstance: MultitouchManager?
 
     var onClickSynthesized: ((CGPoint, Bool) -> Void)?
     var onDragStarted: ((CGPoint) -> Void)?
-    var onDragMoved: ((CGPoint, CGPoint) -> Void)?  // (newPosition, delta)
+    var onDragMoved: ((CGPoint, CGPoint) -> Void)?
     var onDragEnded: ((CGPoint) -> Void)?
 
     init() {
@@ -77,6 +77,7 @@ class MultitouchManager {
         guard isEnabled else { return }
 
         if numTouches == 0 {
+            
             if activeTouch != -1 || isDragging {
                 // Get cursor position directly from CGEvent (already in correct coordinate space)
                 let cgLocation = CGEvent(source: nil)?.location ?? CGPoint.zero
