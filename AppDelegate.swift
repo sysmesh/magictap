@@ -216,6 +216,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         multitouchManager?.onClickSynthesized = { [weak self] location, isRightClick in
             self?.synthesizeClick(at: location, isRightClick: isRightClick)
         }
+        multitouchManager?.onDragStarted = { [weak self] location in
+            self?.synthesizeMouseDown(at: location)
+        }
+        multitouchManager?.onDragMoved = { [weak self] newPosition, _ in
+            self?.synthesizeMouseDragged(at: newPosition)
+        }
+        multitouchManager?.onDragEnded = { [weak self] location in
+            self?.synthesizeMouseUp(at: location)
+        }
         multitouchManager?.start()
     }
 
@@ -255,6 +264,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if let mouseUp = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: location, mouseButton: .left) {
                 mouseUp.post(tap: .cghidEventTap)
             }
+        }
+    }
+
+    func synthesizeMouseDown(at location: CGPoint) {
+        if let mouseDown = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: location, mouseButton: .left) {
+            mouseDown.post(tap: .cghidEventTap)
+        }
+    }
+
+    func synthesizeMouseDragged(at location: CGPoint) {
+        // Just send left mouse dragged at current cursor position
+        // The cursor is already moving with the finger on Magic Mouse
+        if let dragEvent = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDragged, mouseCursorPosition: location, mouseButton: .left) {
+            dragEvent.post(tap: .cghidEventTap)
+        }
+    }
+
+    func synthesizeMouseUp(at location: CGPoint) {
+        if let mouseUp = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: location, mouseButton: .left) {
+            mouseUp.post(tap: .cghidEventTap)
         }
     }
 }
