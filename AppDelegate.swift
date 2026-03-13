@@ -67,53 +67,55 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Time Threshold Slider with proper margins and labels
         let timeTitleItem = NSMenuItem(title: "Time Threshold", action: nil, keyEquivalent: "")
-        timeTitleItem.isEnabled = false // Make it non-clickable to look like a label
+        timeTitleItem.isEnabled = false
         sensitivityMenu.addItem(timeTitleItem)
         
-        // Create slider with proper positioning (centered in menu)
+        // Create container view for slider with labels
+        let timeSliderContainer = NSView(frame: NSMakeRect(0, 0, 180, 20))
+        
+        let timeMinLabel = NSTextField(labelWithString: "Min")
+        timeMinLabel.frame = NSMakeRect(0, 0, 25, 20)
+        timeMinLabel.font = NSFont.systemFont(ofSize: 11)
+        timeSliderContainer.addSubview(timeMinLabel)
+        
         let timeSlider = NSSlider(value: 0.85, minValue: 0.0, maxValue: 2.0, target: self, action: #selector(timeSliderChanged(_:)))
-        timeSlider.frame = NSMakeRect(10, 0, 140, 20)
+        timeSlider.frame = NSMakeRect(28, 0, 120, 20)
+        timeSliderContainer.addSubview(timeSlider)
         
-        // Add Min label to the left
-        let timeMinLabelItem = NSMenuItem(title: "Min", action: nil, keyEquivalent: "")
-        timeMinLabelItem.isEnabled = false
-        sensitivityMenu.addItem(timeMinLabelItem)
+        let timeMaxLabel = NSTextField(labelWithString: "Max")
+        timeMaxLabel.frame = NSMakeRect(152, 0, 28, 20)
+        timeMaxLabel.font = NSFont.systemFont(ofSize: 11)
+        timeSliderContainer.addSubview(timeMaxLabel)
         
-        // Add slider item
         let timeSliderItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-        timeSliderItem.target = self
-        timeSliderItem.view = timeSlider
+        timeSliderItem.view = timeSliderContainer
         sensitivityMenu.addItem(timeSliderItem)
-        
-        // Add Max label to the right
-        let timeMaxLabelItem = NSMenuItem(title: "Max", action: nil, keyEquivalent: "")
-        timeMaxLabelItem.isEnabled = false
-        sensitivityMenu.addItem(timeMaxLabelItem)
         
         // Movement Threshold Slider with proper margins and labels
         let movementTitleItem = NSMenuItem(title: "Movement Threshold", action: nil, keyEquivalent: "")
-        movementTitleItem.isEnabled = false // Make it non-clickable to look like a label
+        movementTitleItem.isEnabled = false
         sensitivityMenu.addItem(movementTitleItem)
         
-        // Create slider with proper positioning (centered in menu)
+        // Create container view for slider with labels
+        let movementSliderContainer = NSView(frame: NSMakeRect(0, 0, 180, 20))
+        
+        let movementMinLabel = NSTextField(labelWithString: "Min")
+        movementMinLabel.frame = NSMakeRect(0, 0, 25, 20)
+        movementMinLabel.font = NSFont.systemFont(ofSize: 11)
+        movementSliderContainer.addSubview(movementMinLabel)
+        
         let movementSlider = NSSlider(value: 0.08, minValue: 0.0, maxValue: 10.0, target: self, action: #selector(movementSliderChanged(_:)))
-        movementSlider.frame = NSMakeRect(10, 0, 140, 20)
+        movementSlider.frame = NSMakeRect(28, 0, 120, 20)
+        movementSliderContainer.addSubview(movementSlider)
         
-        // Add Min label to the left
-        let movementMinLabelItem = NSMenuItem(title: "Min", action: nil, keyEquivalent: "")
-        movementMinLabelItem.isEnabled = false
-        sensitivityMenu.addItem(movementMinLabelItem)
+        let movementMaxLabel = NSTextField(labelWithString: "Max")
+        movementMaxLabel.frame = NSMakeRect(152, 0, 28, 20)
+        movementMaxLabel.font = NSFont.systemFont(ofSize: 11)
+        movementSliderContainer.addSubview(movementMaxLabel)
         
-        // Add slider item
         let movementSliderItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-        movementSliderItem.target = self
-        movementSliderItem.view = movementSlider
+        movementSliderItem.view = movementSliderContainer
         sensitivityMenu.addItem(movementSliderItem)
-        
-        // Add Max label to the right
-        let movementMaxLabelItem = NSMenuItem(title: "Max", action: nil, keyEquivalent: "")
-        movementMaxLabelItem.isEnabled = false
-        sensitivityMenu.addItem(movementMaxLabelItem)
         
         let sensitivityMenuItem = NSMenuItem(title: "Sensitivity", action: nil, keyEquivalent: "")
         sensitivityMenuItem.submenu = sensitivityMenu
