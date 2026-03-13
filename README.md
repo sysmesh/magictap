@@ -5,6 +5,7 @@ Based on the fine work made by the original Mouse Toucher (https://github.com/me
 Left click support, right click support, three fingers swipe up for Expose support and zoom in, out (by pinching) support added.
 
 ✨ Features
+
 🖱️ Tap left side for left-click
 
 🖱️ Tap right side for right-click
