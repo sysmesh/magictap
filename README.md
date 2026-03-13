@@ -9,11 +9,7 @@ Left click support, right click support, three fingers swipe up for Expose suppo
 
 🖱️ Tap right side for right-click
 
-🖱️ Tap two fingers for middle-click
-
-🖱️ Swipe three fingers up for Expose mode
-
-🖱️ Pinch in/out for zooming in or out
+🖱️ Double Tap left side and keep finger on the mouse to drag/resize/move etc (similar to left clicking the mouse and holding it down)
 
 ⚡ Fast & responsive - no noticeable delay
 
