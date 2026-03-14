@@ -71,6 +71,14 @@ class MultitouchManager {
 
     func setEnabled(_ enabled: Bool) {
         isEnabled = enabled
+        if enabled {
+            tapDetector.reset()
+            tapDetector.clearDoubleTapState()
+            activeTouch = -1
+            touchStartX = 0.0
+            touchStartY = 0.0
+            isDragging = false
+        }
     }
 
     func processTouches(_ touches: UnsafeMutablePointer<MTTouch>, numTouches: Int, timestamp: Double) {

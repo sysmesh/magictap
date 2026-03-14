@@ -1,0 +1,46 @@
+{
+  "buildCommand" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : true,
+    "targets" : null
+  },
+  "configuredTargets" : [
+
+  ],
+  "containerPath" : "/Users/gilad/Projects/magictap",
+  "continueBuildingAfterErrors" : true,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "indexbuild",
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/gilad/Projects/magictap/DerivedData/magictap/Index.noindex/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/gilad/Projects/magictap/DerivedData/magictap/Index.noindex/Build/Products",
+      "derivedDataPath" : "/Users/gilad/Projects/magictap/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/gilad/Projects/magictap/DerivedData/magictap/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/gilad/Projects/magictap/DerivedData/magictap/Index.noindex/PrecompiledHeaders",
+      "indexRegularBuildIntermediatesPath" : "/Users/gilad/Projects/magictap/DerivedData/magictap/Build/Intermediates.noindex",
+      "indexRegularBuildProductsPath" : "/Users/gilad/Projects/magictap/DerivedData/magictap/Build/Products",
+      "pchPath" : "/Users/gilad/Projects/magictap/DerivedData/magictap/Index.noindex/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "NO",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "qos" : "utility",
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
