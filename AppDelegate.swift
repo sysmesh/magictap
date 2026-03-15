@@ -63,6 +63,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         multitouchManager?.stop()
     }
 
+    deinit {
+        NSWorkspace.shared.notificationCenter.removeObserver(self)
+    }
+
     func setupMenuBar() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 

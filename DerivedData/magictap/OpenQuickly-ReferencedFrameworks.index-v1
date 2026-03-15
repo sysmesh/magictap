@@ -5,8 +5,8 @@
 	<string>XCTest</string>
 	<string>AppKit</string>
 	<string>MagicTapLib</string>
-	<string>ApplicationServices</string>
 	<string>CoreGraphics</string>
+	<string>ApplicationServices</string>
 	<string>CoreData</string>
 	<string>Cocoa</string>
 	<string>PackageDescription</string>

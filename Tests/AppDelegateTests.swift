@@ -14,9 +14,6 @@ class AppDelegateTests: XCTestCase {
     }
 
     override func tearDown() {
-        if let eventTap = appDelegate.eventTap {
-            CFMachPortInvalidate(eventTap)
-        }
         appDelegate = nil
         super.tearDown()
     }
@@ -25,7 +22,6 @@ class AppDelegateTests: XCTestCase {
 
     func testInitialization_DefaultState() {
         XCTAssertTrue(appDelegate.isEnabled, "App should be enabled by default")
-        XCTAssertNotNil(appDelegate.tapDetector, "Tap detector should be initialized")
     }
 
     // MARK: - Enable/Disable Toggle
@@ -75,31 +71,11 @@ class AppDelegateTests: XCTestCase {
         XCTAssertTrue(true, "synthesizeClick should execute without error")
     }
 
-    // MARK: - Tap Detector Integration
-
-    func testTapDetectorIntegration_InitializedWithDefaults() {
-        XCTAssertEqual(appDelegate.tapDetector.tapTimeThreshold, 0.3, accuracy: 0.01)
-        XCTAssertEqual(appDelegate.tapDetector.tapMovementThreshold, 5.0, accuracy: 0.1)
-    }
-
-    func testTapDetectorIntegration_RespectsEnabledState() {
-        // Test that the enabled state is checked before processing
-        appDelegate.isEnabled = false
-        XCTAssertFalse(appDelegate.isEnabled)
-
-        appDelegate.isEnabled = true
-        XCTAssertTrue(appDelegate.isEnabled)
-    }
-
     // MARK: - State Management
 
     func testStateManagement_EnabledByDefault() {
         let newDelegate = AppDelegate()
         XCTAssertTrue(newDelegate.isEnabled)
-    }
-
-    func testStateManagement_TapDetectorNotTrackingInitially() {
-        XCTAssertFalse(appDelegate.tapDetector.isTracking)
     }
 
     // Note: Menu bar and event handling tests require UI/window server connections

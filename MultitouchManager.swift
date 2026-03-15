@@ -40,6 +40,8 @@ class MultitouchManager {
     }
 
     func start() {
+        guard devices.isEmpty else { return }
+        
         guard let deviceList = MTDeviceCreateList() else {
             return
         }

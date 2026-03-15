@@ -11,7 +11,6 @@ class TapDetector {
     private var touchStartLocation: CGPoint?
     private var lastTapTime: Date?
     private var lastTapLocation: CGPoint?
-    private var lastTapWasOnLeft: Bool = true
 
     init(tapTimeThreshold: TimeInterval = 0.3, tapMovementThreshold: CGFloat = 5.0) {
         self.tapTimeThreshold = tapTimeThreshold
@@ -97,7 +96,6 @@ class TapDetector {
             // Store this tap for potential drag-hold detection
             lastTapTime = currentTime
             lastTapLocation = location
-            lastTapWasOnLeft = isLeftSide
             return .singleTap(location)
         }
 
