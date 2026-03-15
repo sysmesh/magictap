@@ -15,6 +15,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupMenuBar()
+        
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(handleWakeNotification),
+            name: NSWorkspace.didWakeNotification,
+            object: nil
+        )
 
         // Load saved preferences after menu is set up
         DispatchQueue.main.async { [weak self] in
@@ -23,6 +30,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         ensureAccessibilityAndStart()
+    }
+    
+    @objc private func handleWakeNotification() {
+        multitouchManager?.stop()
+        multitouchManager?.start()
+        if isEnabled {
+            multitouchManager?.setEnabled(true)
+        }
     }
 
     @objc func showAccessibilityInstructions() {
@@ -167,7 +182,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         • Double tap left side and hold to drag
         (Similar to holding down left click)
 
-        Version 2.0
+        Version 2.2
 
         Uses private MultitouchSupport framework
         """
